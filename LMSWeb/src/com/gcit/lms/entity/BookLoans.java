@@ -1,6 +1,11 @@
 package com.gcit.lms.entity;
 
-public class BookLoans {
+import java.io.Serializable;
+
+public class BookLoans implements Serializable {
+	
+	private static final long serialVersionUID = -591623965461921994L;
+	
 	private Integer bookId;
 	private Integer branchId;
 	private Integer cardNo;

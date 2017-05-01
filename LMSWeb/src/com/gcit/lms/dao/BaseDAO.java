@@ -16,6 +16,17 @@ public abstract class BaseDAO {
 		this.conn = conn;
 	}
 	
+	private Integer pageNo;
+	private Integer pageSize = 10;
+	
+	public Integer getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
+	}
+
 	public void save(String query, Object[] vals) throws ClassNotFoundException, SQLException{
 		PreparedStatement pstmt = conn.prepareStatement(query);
 		if(vals!=null){
@@ -46,6 +57,11 @@ public abstract class BaseDAO {
 	}
 	
 	public List read(String query, Object[] vals) throws ClassNotFoundException, SQLException{
+		Integer index = 0;
+		if(getPageNo()!=null){
+			index = (getPageNo()-1)*10;
+		}
+		query = query+" LIMIT "+index+", "+pageSize;
 		PreparedStatement pstmt = conn.prepareStatement(query);
 		if(vals!=null){
 			int count = 1;
@@ -56,6 +72,35 @@ public abstract class BaseDAO {
 		}
 		ResultSet rs = pstmt.executeQuery();
 		return extractData(rs);
+	}
+	
+	public List readAll(String query, Object[] vals) throws ClassNotFoundException, SQLException{
+		PreparedStatement pstmt = conn.prepareStatement(query);
+		if(vals!=null){
+			int count = 1;
+			for(Object obj: vals){
+				pstmt.setObject(count, obj);
+				count++;
+			}
+		}
+		ResultSet rs = pstmt.executeQuery();
+		return extractData(rs);
+	}
+	
+	public Integer readCount(String query, Object[] vals) throws ClassNotFoundException, SQLException{
+		PreparedStatement pstmt = conn.prepareStatement(query);
+		if(vals!=null){
+			int count = 1;
+			for(Object obj: vals){
+				pstmt.setObject(count, obj);
+				count++;
+			}
+		}
+		ResultSet rs = pstmt.executeQuery();
+		if(rs.next()){
+			return rs.getInt("COUNT");
+		}
+		return null;
 	}
 	
 	public abstract List extractData(ResultSet rs) throws SQLException, ClassNotFoundException;

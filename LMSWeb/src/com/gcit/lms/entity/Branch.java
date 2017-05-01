@@ -1,37 +1,29 @@
 package com.gcit.lms.entity;
 
-public class Branch {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Branch implements Serializable {
+	
+	private static final long serialVersionUID = -4766235742518519898L;
+	
 	private Integer branchId;
 	private String branchName;
 	private String branchAddress;
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
+	private List<Book> books;
+	
+	/**
+	 * @return the books
 	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((branchId == null) ? 0 : branchId.hashCode());
-		return result;
+	public List<Book> getBooks() {
+		return books;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
+	/**
+	 * @param books the books to set
 	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Branch other = (Branch) obj;
-		if (branchId == null) {
-			if (other.branchId != null)
-				return false;
-		} else if (!branchId.equals(other.branchId))
-			return false;
-		return true;
+	public void setBooks(List<Book> books) {
+		this.books = books;
 	}
 	/**
 	 * @return the branchId
@@ -68,5 +60,37 @@ public class Branch {
 	 */
 	public void setBranchAddress(String branchAddress) {
 		this.branchAddress = branchAddress;
+	}
+	
+
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((branchId == null) ? 0 : branchId.hashCode());
+		return result;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Branch other = (Branch) obj;
+		if (branchId == null) {
+			if (other.branchId != null)
+				return false;
+		} else if (!branchId.equals(other.branchId))
+			return false;
+		return true;
 	}
 }

@@ -1,10 +1,45 @@
 package com.gcit.lms.entity;
 
-public class Borrower {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Borrower implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5649507294863163156L;
+	
 	private Integer cardNo;
 	private String name;
 	private String address;
 	private String phone;
+	private List<Book> books;
+	private List<Branch> branch;
+	/**
+	 * @return the branch
+	 */
+	public List<Branch> getBranch() {
+		return branch;
+	}
+	/**
+	 * @param branch the branch to set
+	 */
+	public void setBranch(List<Branch> branch) {
+		this.branch = branch;
+	}
+	/**
+	 * @return the books
+	 */
+	public List<Book> getBooks() {
+		return books;
+	}
+	/**
+	 * @param books the books to set
+	 */
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
 	/**
 	 * @return the cardNo
 	 */

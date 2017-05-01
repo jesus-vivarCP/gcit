@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gcit.lms.entity.Author;
-
+/**
+ * This is a DAO
+ * @author ppradhan
+ *
+ */
 public class AuthorDAO extends BaseDAO{
 	
 	public AuthorDAO(Connection conn) {
@@ -23,11 +27,16 @@ public class AuthorDAO extends BaseDAO{
 	}
 	
 	public void deleteAuthor(Author author) throws ClassNotFoundException, SQLException{
-		save("delete * from tbl_author where authorId = ?", new Object[] {author.getAuthorId()});
+		save("delete from tbl_author where authorId = ?", new Object[] {author.getAuthorId()});
+	}
+	
+	public List<Author> readAllAuthors(Integer pageNo) throws ClassNotFoundException, SQLException{
+		setPageNo(pageNo);
+		return read("select * from tbl_author", null);
 	}
 	
 	public List<Author> readAllAuthors() throws ClassNotFoundException, SQLException{
-		return read("select * from tbl_author", null);
+		return readAll("select * from tbl_author", null);
 	}
 	
 	public Author readAuthorByID(Integer authorID) throws ClassNotFoundException, SQLException{
@@ -39,7 +48,12 @@ public class AuthorDAO extends BaseDAO{
 	}
 	
 	public List<Author> readAuthorsByName(String  authorName) throws ClassNotFoundException, SQLException{
+		authorName = "%"+authorName+"%";
 		return read("select * from tbl_author where authorName like ?", new Object[]{authorName});
+	}
+	
+	public Integer getAuthorsCount() throws ClassNotFoundException, SQLException{
+		return readCount("select count(*) as COUNT from tbl_author", null);
 	}
 
 	@Override

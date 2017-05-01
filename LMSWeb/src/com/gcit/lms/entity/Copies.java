@@ -1,6 +1,11 @@
 package com.gcit.lms.entity;
 
-public class Copies {
+import java.io.Serializable;
+
+public class Copies implements Serializable {
+	
+	private static final long serialVersionUID = -5432713302429746927L;
+	
 	private Integer bookId;
 	private Integer branchId;
 	private Integer noOfCopies;
